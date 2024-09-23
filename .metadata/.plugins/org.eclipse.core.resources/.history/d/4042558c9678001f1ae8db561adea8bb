@@ -1,0 +1,34 @@
+package randomPetubation;
+
+import data.Data;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileReader;
+import java.io.BufferedReader;
+
+
+public class RandomPertubation {
+	public static void main(String[] args) {
+		
+		Data data = new Data();
+		
+		try (BufferedReader fileReader = new BufferedReader(new FileReader("points/points"))) {
+			
+			String line;
+			
+			while((line = fileReader.readLine()) != null) {
+				String[] lineItems = line.split(",");
+				
+				for (int i = 0; i < lineItems.length; i++) {
+					data[i] = lineItems[i];
+				}
+ 			}
+		
+		
+		
+
+		}catch(Exception e) {
+		
+		}
+	}
+}

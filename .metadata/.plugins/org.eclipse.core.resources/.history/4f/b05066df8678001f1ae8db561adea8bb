@@ -1,0 +1,11 @@
+package randomPetubation;
+
+
+
+
+public class Data {
+
+	public Data() {
+	}
+
+}

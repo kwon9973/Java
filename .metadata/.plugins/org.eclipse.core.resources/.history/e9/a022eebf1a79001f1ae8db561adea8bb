@@ -1,0 +1,33 @@
+package data;
+
+
+public class Data {
+	
+	private double [] var;
+	
+	
+	
+	public Data() {
+		var = new double [100];
+	}
+	public Data(int size) {
+		var = new double [size]; 
+	}
+	public void setSize(int num) {
+		var = new double[num];
+	}
+	public double [] getData() {
+		 return var;
+	}
+	public void setData(int index, double value) {
+		var[index] = value;
+	}
+	public void displayData() {
+		for (int i = 0; i < var.length; i++) {
+			System.out.print(this.var[i] + " ");	
+		}
+
+	}
+	
+
+}

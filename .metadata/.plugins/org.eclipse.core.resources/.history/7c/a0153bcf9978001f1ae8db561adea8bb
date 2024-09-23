@@ -1,0 +1,37 @@
+package randomPetubation;
+
+import data.Data;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.File;
+
+public class RandomPertubation {
+	public static void main(String[] args) {
+		
+		Data data = new Data();
+		
+		
+		File f = new File("points.txt");
+		System.out.println(f.getAbsolutePath());
+		
+		
+		try (BufferedReader fileReader = new BufferedReader(new FileReader("points.txt"))) {
+				
+			String line;
+			
+			while((line = fileReader.readLine()) != null) {
+				String[] lineItems = line.split(",");
+				System.out.print(lineItems);
+				
+				for (int i = 0; i < lineItems.length; i++) {
+					data.setData(i, (double) Integer.parseInt(lineItems[i]));
+					data.displayData();	
+				}
+ 			}
+		}catch(Exception e) {
+		
+		}
+	}
+}

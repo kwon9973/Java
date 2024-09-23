@@ -1,0 +1,17 @@
+package randomPetubation;
+
+
+import Data;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class RandomPertubation {
+	public static void main(String[] args) {
+		Data data = new Data();
+		
+		
+
+	}
+
+}

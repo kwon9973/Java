@@ -1,0 +1,12 @@
+package data;
+
+public class Graph {
+
+	int [][] graph;
+	
+	
+	public Graph() {
+		graph = new int[50][50];
+	}
+	
+}

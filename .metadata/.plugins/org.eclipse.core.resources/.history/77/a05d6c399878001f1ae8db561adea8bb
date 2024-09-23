@@ -1,0 +1,23 @@
+package data;
+
+
+public class Data {
+	
+	private double [] var;
+	
+	
+	public Data() {
+		var = new double [100];
+	}
+	public Data(int size) {
+		var = new double [size]; 
+	}
+	public double [] getData() {
+		 return var;
+	}
+	public void setData(int index, double value) {
+		var[index] = value;
+	}
+	
+
+}
