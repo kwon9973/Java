@@ -1,6 +1,5 @@
 package randomNumberGenerator;
 
-
 import java.io.File;
 import java.util.Random;
 import java.io.FileWriter;
@@ -56,9 +55,5 @@ public class RandomNumberGenerator{
 		}catch(Exception e) {
 			System.out.print(false);
 		}
-		
-		
-
 	}
-
 }
