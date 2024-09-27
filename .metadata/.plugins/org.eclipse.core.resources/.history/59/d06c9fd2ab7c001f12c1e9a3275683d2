@@ -1,0 +1,26 @@
+package randomNumberGenerator;
+
+
+import java.io.File;
+import java.io.IOException;
+
+
+public class RandomNumberGenerator {
+
+	public static void main(String[] args) {
+		try{
+			File file = new File("point.txt");
+			if(file.createNewFile()) {
+				System.out.print(file.getName() + "is created");
+			}else {
+				System.out.print("the file already is existed");
+			}
+		}catch(Exception e) {
+			System.out.print(false);
+		}
+		
+		
+
+	}
+
+}
