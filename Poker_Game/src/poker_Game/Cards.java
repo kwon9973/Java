@@ -7,6 +7,7 @@ import java.util.*;
 
 public class Cards {
 	
+	
 	//Class that has a single card data fields
 	private class Card{
 		private String suites;
@@ -21,6 +22,7 @@ public class Cards {
 			return suites + "-" + numbers;
 		}
 	}
+	
 	
 	//Create an ArrayList to add a single card until we have a full deck
 	//we use Card type ArrayList to add the Card data(Two values: suite and number)
@@ -39,6 +41,7 @@ public class Cards {
 		System.out.println(Deck); // a multiple toString constructor of ArrayList - hard concept
 	}
 	
+	
 	//shuffle the Deck
 	Random rand = new Random();
 	public void shuffleDeck() {
@@ -50,6 +53,8 @@ public class Cards {
 			Deck.set(j, currentCard);
 		}
 		System.out.println(Deck);
+		System.out.println();
+		System.out.println();
 	}
 	
 	//if there are more than two players, make an object for multiple players for handing two cards for each
@@ -58,16 +63,23 @@ public class Cards {
 	ArrayList<Card> playerTwo = new ArrayList<>();
 	//remove two cards on top of the deck for player one
 	public void handingOne() {
+		System.out.println("Player 1 cards'");
 		playerOne.add(Deck.remove(Deck.size()-1));
 		playerOne.add(Deck.remove(Deck.size()-1));
-		System.out.println(playerOne.toArray());
+		System.out.println(playerOne.toString());
+		System.out.println();
 	}
+	
+	
 	//remove two cards on top of the deck for player two
 	public void handingTwo() {
+		System.out.println("Player 2 cards'");
 		playerTwo.add(Deck.remove(Deck.size()-1));
 		playerTwo.add(Deck.remove(Deck.size()-1));
-		System.out.println(playerTwo.toArray());
+		System.out.println(playerTwo.toString());
+		System.out.println();
 	}
+	
 	
 	//money to bid for each players
 	private class Money{
@@ -76,7 +88,6 @@ public class Cards {
 		static private int gameMoney = 10;
 		static private int bidMoney = 0;
 		public int bidding = 0;
-		
 		
 		Money(){
 			money = 1000;
@@ -132,30 +143,42 @@ public class Cards {
 	
 	//ask each user to bid, call, or die
 	Money []money = new Money[2];
+	public int count = 0;
+	
+	public int moneyOne = 0;
+	public int moneyTwo = 0;
+	
 	public void call() {
+		
+		if (count == 0) {
+			money[0] = new Money();
+			money[1] = new Money();
+		}else if(count > 0){
+			money[0] = new Money(moneyOne);
+			money[1] = new Money(moneyTwo);
+		}
+		count++;
+		
 		
 		Scanner input = new Scanner(System.in);
 		int [] choice = new int[3];
 		
 		
 		for(int i = 0; i < choice.length-1; i++) {
-			money[i] = new Money();
 			
 			if (money[i].getMoney() == 1000) {
 				money[i].gameMoney();
 			}
-			System.out.println();
+			
 			System.out.println("player " + (i+1) + " What do you want to do: (1. call 2. bid 3. die)");
 			choice[i] = input.nextInt();
-			
+			System.out.println("Totla money in the pot: " + Money.getBidMoney());
 			
 			if(choice[i] == 1) {
 				
 				// whichever the player wants to bid, the other player should be able to just call to match the bidding.
 				if (money[0].bidding != 0) {
 					System.out.println();
-					System.out.println(money[0].bidding);
-					
 					System.out.println("following the player's bid: ");
 					money[i].bid();
 					do {
@@ -168,7 +191,6 @@ public class Cards {
 						}
 					}while(money[0].bidding != money[1].bidding);
 					System.out.println();
-					
 				}
 			}else if(choice[i] == 2) {
 				//if other player's bidding is higher, then you should be able to follow or bid higher	
@@ -196,9 +218,8 @@ public class Cards {
 							money[1].bid();
 							System.out.println();
 						}
-					}while(money[0].bidding==money[1].bidding);
+					}while(money[0].bidding!=money[1].bidding);
 					System.out.println(Money.getBidMoney());
-
 				}
 									
 			}else if(choice[i] == 3) {
@@ -213,15 +234,16 @@ public class Cards {
 				System.out.print(Money.getBidMoney());
 				}
 			}
+			
 		}
+		moneyOne = money[0].getMoney();
+		moneyTwo = money[1].getMoney();
 	}
 	
-	/*
-	//calculate the upper hand by the rank of the cards combination 
-	public void open() {
-					
-	}
-	*/
+	
+	
+	
+	
 		
 	//find a match with the first card you have with the cards on the table
 	//first - find a matching number from the first card 
@@ -238,21 +260,35 @@ public class Cards {
 	//and pick one of any card and look for a matching suite And declare a minimum value to get rid of it except 1='A'
 	//NOTES - use a split method to get the "-" out
 	
-	/*
+	//calculate the upper hand by the rank of the cards combination 
+	public void open() {
+				
+		}
+	
+		
+		
+	ArrayList<Card> table = new ArrayList<>();	
 	//lays three cards on the table and ask user to bid before putting 4th and 5th card on the table and finally open()
-	ArrayList<Card> table = new ArrayList<>();
 	public void setTable() {
+		System.out.println("Dealing three cards on the table: ");
 		table.add(Deck.remove(Deck.size()-1));
 		table.add(Deck.remove(Deck.size()-1));
 		table.add(Deck.remove(Deck.size()-1));
-		System.out.println(playerTwo.toArray());
-		handingOne();
-		handingTwo();
+		System.out.println(table.toString());
+		System.out.println();
+		call();
 		table.add(Deck.remove(Deck.size()-1));
+		System.out.println(table.toString());
+		System.out.println();
+		call();
 		table.add(Deck.remove(Deck.size()-1));
+		System.out.println(table.toString());
+		System.out.println();
+		call();
 		//open();
+		//reset ArrayList to 0
 	}	 
-	*/
+	
 	
 	/*
 	//if user want to quit or run out of money break or return false value to stop the loop
