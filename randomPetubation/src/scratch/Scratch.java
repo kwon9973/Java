@@ -14,6 +14,9 @@ public class Scratch {
 		return arr;
 	}
 	
+	
+	
+	
 	public static void main(String[] args) {
 		
 		
@@ -31,6 +34,12 @@ public class Scratch {
 		
 		
 		System.out.print(Arrays.deepToString(arr.getData()));
+		
+		
+		int i =40;
+		int j = 45;
+		
+		System.out.print(i % j);
 		
 		
 		
