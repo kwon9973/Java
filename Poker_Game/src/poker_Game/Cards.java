@@ -245,7 +245,6 @@ public class Cards {
 	
 	
 		
-	//find a match with the first card you have with the cards on the table
 	//first - find a matching number from the first card 
 	//second - find a matching number from the second card
 	//third - if both cards on hand have a match AND one has two matching cards AND other has a single matching card, then assign F.H.
@@ -262,9 +261,27 @@ public class Cards {
 	
 	//calculate the upper hand by the rank of the cards combination 
 	public void open() {
-				
+		for (int i = 0; i < table.size(); i++) {
+			
 		}
+	}
 	
+	
+	ArrayList<Card> sorted = new ArrayList<>();
+	public void sorting() {
+		
+		String ch;
+		int i = 0;
+		
+		do {
+			sorted.add(table.get(i));
+			i++;
+		}while(i < 7);
+		do {
+			sorted.add(playerOne.get(i));
+			i++;
+		}while(i < 2);
+	}
 		
 		
 	ArrayList<Card> table = new ArrayList<>();	
