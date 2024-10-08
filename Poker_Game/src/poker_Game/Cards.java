@@ -21,6 +21,12 @@ public class Cards {
 		public String toString() {
 			return suites + "-" + numbers;
 		}
+		public String getSuites() {
+			return this.suites;
+		}
+		public String getNumbers() {
+			return this.numbers;
+		}
 	}
 	
 	
@@ -38,7 +44,7 @@ public class Cards {
 			}
 		}
 		System.out.println("Deck is built ");
-		System.out.println(Deck); // a multiple toString constructor of ArrayList - hard concept
+		System.out.print(Deck);
 	}
 	
 	
@@ -52,7 +58,6 @@ public class Cards {
 			Deck.set(i, randomCard);
 			Deck.set(j, currentCard);
 		}
-		System.out.println(Deck);
 		System.out.println();
 		System.out.println();
 	}
@@ -277,6 +282,7 @@ public class Cards {
 			sorted.add(table.get(i));
 			i++;
 		}while(i < 7);
+		i = 0;
 		do {
 			sorted.add(playerOne.get(i));
 			i++;
