@@ -8,6 +8,7 @@ import java.util.*;
 public class Cards {
 	
 	
+	
 	//Class that has a single card data fields
 	private class Card{
 		private String suites;
@@ -30,6 +31,8 @@ public class Cards {
 	}
 	
 	
+	
+	
 	//Create an ArrayList to add a single card until we have a full deck
 	//we use Card type ArrayList to add the Card data(Two values: suite and number)
 	private ArrayList <Card> Deck = new ArrayList<>();
@@ -47,6 +50,9 @@ public class Cards {
 	}
 	
 	
+	
+	
+	
 	//shuffle the Deck
 	Random rand = new Random();
 	public void shuffleDeck() {
@@ -61,11 +67,14 @@ public class Cards {
 		System.out.println();
 	}
 	
+	
+	
+	
+	//remove two cards on top of the deck for player one
 	//if there are more than two players, make an object for multiple players for handing two cards for each
 	//storing the two cards on hand in ArrayList for each player
 	ArrayList<Card> playerOne = new ArrayList<>(); 
 	ArrayList<Card> playerTwo = new ArrayList<>();
-	//remove two cards on top of the deck for player one
 	public void handingOne() {
 		System.out.println("Player 1 cards'");
 		playerOne.add(Deck.remove(Deck.size()-1));
@@ -73,6 +82,8 @@ public class Cards {
 		System.out.println(playerOne.toString());
 		System.out.println();
 	}
+	
+	
 	
 	
 	//remove two cards on top of the deck for player two
@@ -83,6 +94,9 @@ public class Cards {
 		System.out.println(playerTwo.toString());
 		System.out.println();
 	}
+	
+	
+	
 	
 	
 	//money to bid for each players
@@ -131,13 +145,11 @@ public class Cards {
 			Scanner input = new Scanner(System.in);
 			
 			Money.setBidMoney(Money.getBidMoney()-bidding);
-			
 			System.out.println("money: " + this.getMoney());
 			System.out.print("How much do you want to bid?: (if you want to continue the game, please match the money the other player bid) ");
 			bidding = input.nextInt();
 			this.money -= bidding;
 			System.out.println("Money: " + this.getMoney());
-			
 			Money.setBidMoney(Money.getBidMoney()+bidding);
 			
 			System.out.println("Total money in the pot: " + Money.getBidMoney());
@@ -145,13 +157,13 @@ public class Cards {
 	}
 	
 	
+	
+	
 	//ask each user to bid, call, or die
 	Money []money = new Money[2];
 	public int count = 0;
-	
 	public int moneyOne = 0;
 	public int moneyTwo = 0;
-	
 	public void call() {
 		
 		if (count == 0) {
@@ -162,24 +174,20 @@ public class Cards {
 			money[1] = new Money(moneyTwo);
 		}
 		count++;
-		
-		
+
 		Scanner input = new Scanner(System.in);
 		int [] choice = new int[3];
 		
-		
 		for(int i = 0; i < choice.length-1; i++) {
-			
 			if (money[i].getMoney() == 1000) {
 				money[i].gameMoney();
 			}
 			
 			System.out.println("player " + (i+1) + " What do you want to do: (1. call 2. bid 3. die)");
 			choice[i] = input.nextInt();
-			System.out.println("Totla money in the pot: " + Money.getBidMoney());
+			System.out.println("Totql money in the pot: " + Money.getBidMoney());
 			
 			if(choice[i] == 1) {
-				
 				// whichever the player wants to bid, the other player should be able to just call to match the bidding.
 				if (money[0].bidding != 0) {
 					System.out.println();
@@ -205,7 +213,6 @@ public class Cards {
 				//money[1].bid();
 				if ((money[1] != null) && (money[1].bidding > money[0].bidding)) {
 					do {
-						
 						if (money[0].bidding < money[1].bidding) {
 							System.out.println();
 							System.out.println("Player 1");
@@ -224,8 +231,7 @@ public class Cards {
 						}
 					}while(money[0].bidding!=money[1].bidding);
 					System.out.println(Money.getBidMoney());
-				}
-									
+				}					
 			}else if(choice[i] == 3) {
 				if(i == 1) {
 					money[0].plus(Money.getBidMoney());
@@ -238,7 +244,6 @@ public class Cards {
 				System.out.print(Money.getBidMoney());
 				}
 			}
-			
 		}
 		moneyOne = money[0].getMoney();
 		moneyTwo = money[1].getMoney();
@@ -248,7 +253,7 @@ public class Cards {
 	
 	
 	
-		
+
 	//first - find a matching number from the first card 
 	//second - find a matching number from the second card 
 	
@@ -276,50 +281,37 @@ public class Cards {
 	
 	LinkedList <Integer>sortedNumber = new LinkedList<>();
 	
-	
 	public void open() {
 		sorting();
 		
-		int min;
-		for (int i = 0; i < sortedOne.size(); i++) {
-				min = Integer.parseInt(sortedOne.get(0).getNumbers());
-				if (i == 0) {
-					sortedNumber.set(0, min);
-				}
-				if (min < Integer.parseInt(sortedOne.get(i).getNumbers())) {
-					min = Integer.parseInt(sortedOne.get(i).getNumbers());
-					sortedNumber.set(i, min);	
-				}
-			}
-		
 		//for pairs
-		for (int i = 0; i < sortedOne.size(); i++) {
-			for (int j = i+1; j <sortedOne.size(); i++) {
-				if(sortedOne.get(i).getNumbers().equals(sortedOne.get(j).getNumbers())) {
-					pairsOne.add(sortedOne.get(j));
+		for (int i = 0; i < combinedOne.size(); i++) {
+			for (int j = i+1; j <combinedOne.size(); i++) {
+				if(combinedOne.get(i).getNumbers().equals(combinedOne.get(j).getNumbers())) {
+					pairsOne.add(combinedOne.get(j));
 					if(pairsOne != null) {
-						pairsOne.add(sortedOne.get(i));
+						pairsOne.add(combinedOne.get(i));
 					}
 				}
 			}
 		}
-		for (int i = 0; i < sortedTwo.size(); i++) {
-			for (int j = i+1; j <sortedTwo.size(); i++) {
-				if(sortedTwo.get(i).getNumbers().equals(sortedTwo.get(j).getNumbers())) {
-					pairsTwo.add(sortedOne.get(j));
+		for (int i = 0; i < combinedTwo.size(); i++) {
+			for (int j = i+1; j <combinedTwo.size(); i++) {
+				if(combinedTwo.get(i).getNumbers().equals(combinedTwo.get(j).getNumbers())) {
+					pairsTwo.add(combinedTwo.get(j));
 					if(pairsTwo != null) {
-						pairsTwo.add(sortedTwo.get(i));
+						pairsTwo.add(combinedTwo.get(i));
 					}
 				}
 			}
 		}
 		//for straight
-		for (int i = 0; i < sortedOne.size(); i++) {
-			for (int j = i+1; j <sortedOne.size(); i++) {
-					if(Math.abs(Integer.parseInt(sortedOne.get(i).getNumbers())-Integer.parseInt(sortedOne.get(j).getNumbers())) == 1) {
-						straightOne.add(sortedOne.get(j));
+		for (int i = 0; i < combinedOne.size(); i++) {
+			for (int j = i+1; j <combinedOne.size(); i++) {
+					if(Math.abs(Integer.parseInt(combinedOne.get(i).getNumbers())-Integer.parseInt(combinedOne.get(j).getNumbers())) == 1) {
+						straightOne.add(combinedOne.get(j));
 						if(straightOne != null) {
-							straightOne.add(sortedOne.get(i));
+							straightOne.add(combinedOne.get(i));
 						}
 					}
 				}
@@ -328,24 +320,50 @@ public class Cards {
 	
 	
 	
-	LinkedList<Card> sortedOne = new LinkedList<>();
-	LinkedList<Card> sortedTwo = new LinkedList<>();
+	
+	LinkedList<Card> combinedOne = new LinkedList<>();
+	LinkedList<Card> combinedTwo = new LinkedList<>();
 	public void sorting() {
-		String ch;
-		int i = 0;
-		do {
-			sortedOne.add(table.get(i));
-			sortedTwo.add(table.get(i));
-			i++;
-		}while(i < 7);
-		i = 0;
-		do {
-			sortedOne.add(playerOne.get(i));
-			sortedTwo.add(playerTwo.get(i));
-			i++;
-		}while(i < 2);
-	}
 		
+		combinedOne.addAll(playerOne);
+		combinedOne.addAll(table);
+		combinedTwo.addAll(playerTwo);
+		combinedTwo.addAll(table);
+		
+		int minNum;
+		String minStr;
+		Card minLinked = new Card("whatever","whatever");
+		int minPivot = 0;
+		LinkedList <Card> numberDummy = new LinkedList<>();
+		numberDummy.addAll(combinedOne);
+		for (int i = 1; i < numberDummy.size(); i++) {
+				
+				minNum = Integer.parseInt(numberDummy.get(minPivot).getNumbers());
+				minStr = numberDummy.get(minPivot).getNumbers();
+				if (minStr.compareTo(numberDummy.get(i).getNumbers()) < 0) {
+					minNum = Integer.parseInt(numberDummy.get(i).getNumbers());
+					minLinked = numberDummy.get(i);
+					numberDummy.set(i, numberDummy.get(minPivot));
+					numberDummy.set(minPivot, minLinked);
+					System.out.println("the linkedlist getting sorted");
+					System.out.println(numberDummy);
+					sortedNumber.add(minNum);
+					System.out.println("found the minimum and the list now is");
+					System.out.println(sortedNumber);
+				}else{
+					sortedNumber.add(minNum);
+					System.out.println("didn't find the min so the list now is");
+					System.out.println(sortedNumber);
+				}
+				minPivot++;
+			}
+		System.out.print(sortedNumber);
+	}
+	
+	
+	
+	
+	
 		
 	ArrayList<Card> table = new ArrayList<>();	
 	//lays three cards on the table and ask user to bid before putting 4th and 5th card on the table and finally open()
@@ -368,6 +386,9 @@ public class Cards {
 		//open();
 		//reset ArrayList to 0
 	}	 
+	
+	
+	
 	
 	
 	/*
