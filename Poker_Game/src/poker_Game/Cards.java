@@ -44,7 +44,6 @@ public class Cards {
 			}
 		}
 		System.out.println("Deck is built ");
-		System.out.print(Deck);
 	}
 	
 	
@@ -251,12 +250,16 @@ public class Cards {
 	
 		
 	//first - find a matching number from the first card 
-	//second - find a matching number from the second card
+	//second - find a matching number from the second card 
+	
+	//since I am just grouping all in one ArrayList. check the error of not picking with the player's cards. For example, it might just give you a straight with the table cards
+	
 	//third - if both cards on hand have a match AND one has two matching cards AND other has a single matching card, then assign F.H.
 	//fourth - if one on hand matches to three cards, declare Four of A Kind.
+	
 	//fifth - if matching doesn't exist, convert the string into number 
-	//make a array that input all the two cards on hand and the cards on the table 
-	//and sort it and pick any one of cards and if the next index array value is bigger by 1
+	
+	//Sort the ArrayList and pick any one of cards and if the next index array value is bigger by 1
 	//and if the picked card is at the end index of the array then start from the first and find if it's 1 bigger
 	//if all the consecutive elements are same suite declare straight Flush.
 	//seventh check if the suites are from where the picked one getting compared with the next index array
@@ -265,26 +268,80 @@ public class Cards {
 	//NOTES - use a split method to get the "-" out
 	
 	//calculate the upper hand by the rank of the cards combination 
+	
+	LinkedList <Card>pairsOne = new LinkedList<>();
+	LinkedList <Card>pairsTwo = new LinkedList<>();
+	LinkedList <Card>straightOne = new LinkedList<>();
+	LinkedList <Card>straightTwo = new LinkedList<>();
+	
+	LinkedList <Integer>sortedNumber = new LinkedList<>();
+	
+	
 	public void open() {
-		for (int i = 0; i < table.size(); i++) {
-			
-		}
-	}
-	
-	
-	ArrayList<Card> sorted = new ArrayList<>();
-	public void sorting() {
+		sorting();
 		
+		int min;
+		for (int i = 0; i < sortedOne.size(); i++) {
+				min = Integer.parseInt(sortedOne.get(0).getNumbers());
+				if (i == 0) {
+					sortedNumber.set(0, min);
+				}
+				if (min < Integer.parseInt(sortedOne.get(i).getNumbers())) {
+					min = Integer.parseInt(sortedOne.get(i).getNumbers());
+					sortedNumber.set(i, min);	
+				}
+			}
+		
+		//for pairs
+		for (int i = 0; i < sortedOne.size(); i++) {
+			for (int j = i+1; j <sortedOne.size(); i++) {
+				if(sortedOne.get(i).getNumbers().equals(sortedOne.get(j).getNumbers())) {
+					pairsOne.add(sortedOne.get(j));
+					if(pairsOne != null) {
+						pairsOne.add(sortedOne.get(i));
+					}
+				}
+			}
+		}
+		for (int i = 0; i < sortedTwo.size(); i++) {
+			for (int j = i+1; j <sortedTwo.size(); i++) {
+				if(sortedTwo.get(i).getNumbers().equals(sortedTwo.get(j).getNumbers())) {
+					pairsTwo.add(sortedOne.get(j));
+					if(pairsTwo != null) {
+						pairsTwo.add(sortedTwo.get(i));
+					}
+				}
+			}
+		}
+		//for straight
+		for (int i = 0; i < sortedOne.size(); i++) {
+			for (int j = i+1; j <sortedOne.size(); i++) {
+					if(Math.abs(Integer.parseInt(sortedOne.get(i).getNumbers())-Integer.parseInt(sortedOne.get(j).getNumbers())) == 1) {
+						straightOne.add(sortedOne.get(j));
+						if(straightOne != null) {
+							straightOne.add(sortedOne.get(i));
+						}
+					}
+				}
+			}
+		}
+	
+	
+	
+	LinkedList<Card> sortedOne = new LinkedList<>();
+	LinkedList<Card> sortedTwo = new LinkedList<>();
+	public void sorting() {
 		String ch;
 		int i = 0;
-		
 		do {
-			sorted.add(table.get(i));
+			sortedOne.add(table.get(i));
+			sortedTwo.add(table.get(i));
 			i++;
 		}while(i < 7);
 		i = 0;
 		do {
-			sorted.add(playerOne.get(i));
+			sortedOne.add(playerOne.get(i));
+			sortedTwo.add(playerTwo.get(i));
 			i++;
 		}while(i < 2);
 	}
