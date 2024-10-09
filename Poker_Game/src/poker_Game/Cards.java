@@ -161,9 +161,11 @@ public class Cards {
 	
 	//ask each user to bid, call, or die
 	Money []money = new Money[2];
+	
 	public int count = 0;
 	public int moneyOne = 0;
 	public int moneyTwo = 0;
+	
 	public void call() {
 		
 		if (count == 0) {
@@ -185,7 +187,7 @@ public class Cards {
 			
 			System.out.println("player " + (i+1) + " What do you want to do: (1. call 2. bid 3. die)");
 			choice[i] = input.nextInt();
-			System.out.println("Totql money in the pot: " + Money.getBidMoney());
+			System.out.println("Total money in the pot: " + Money.getBidMoney());
 			
 			if(choice[i] == 1) {
 				// whichever the player wants to bid, the other player should be able to just call to match the bidding.
@@ -279,10 +281,12 @@ public class Cards {
 	LinkedList <Card>straightOne = new LinkedList<>();
 	LinkedList <Card>straightTwo = new LinkedList<>();
 	
-	LinkedList <Integer>sortedNumber = new LinkedList<>();
+	LinkedList <Integer>sortedNumberOne = new LinkedList<>();
+	LinkedList <Integer>sortedNumberTwo = new LinkedList<>();
 	
 	public void open() {
 		sorting();
+		sortingTwo();
 		
 		//for pairs
 		for (int i = 0; i < combinedOne.size(); i++) {
@@ -327,37 +331,62 @@ public class Cards {
 		
 		combinedOne.addAll(playerOne);
 		combinedOne.addAll(table);
-		combinedTwo.addAll(playerTwo);
-		combinedTwo.addAll(table);
 		
-		int minNum;
-		String minStr;
-		Card minLinked = new Card("whatever","whatever");
+		int find;
 		int minPivot = 0;
 		LinkedList <Card> numberDummy = new LinkedList<>();
 		numberDummy.addAll(combinedOne);
-		for (int i = 1; i < numberDummy.size(); i++) {
-				
-				minNum = Integer.parseInt(numberDummy.get(minPivot).getNumbers());
-				minStr = numberDummy.get(minPivot).getNumbers();
-				if (minStr.compareTo(numberDummy.get(i).getNumbers()) < 0) {
-					minNum = Integer.parseInt(numberDummy.get(i).getNumbers());
-					minLinked = numberDummy.get(i);
-					numberDummy.set(i, numberDummy.get(minPivot));
-					numberDummy.set(minPivot, minLinked);
-					System.out.println("the linkedlist getting sorted");
-					System.out.println(numberDummy);
-					sortedNumber.add(minNum);
-					System.out.println("found the minimum and the list now is");
-					System.out.println(sortedNumber);
-				}else{
-					sortedNumber.add(minNum);
-					System.out.println("didn't find the min so the list now is");
-					System.out.println(sortedNumber);
-				}
-				minPivot++;
+		for (int i = 0; i < numberDummy.size(); i++) {
+				find = Integer.parseInt(numberDummy.get(i).getNumbers());
+				sortedNumberOne.add(find);
 			}
-		System.out.print(sortedNumber);
+		
+		int minNum;
+		int i = 0;
+
+		do {
+			minNum = sortedNumberOne.get(i);
+
+			for(int j = i + 1; j < sortedNumberOne.size(); j++) {
+				if(minNum > sortedNumberOne.get(j)) {
+					minNum = sortedNumberOne.get(j);
+					sortedNumberOne.set(sortedNumberOne.lastIndexOf(sortedNumberOne.get(j)), sortedNumberOne.get(i));
+					sortedNumberOne.set(i, minNum);
+				}
+			}
+			i++;
+		}while(i < 7);
+	}
+	public void sortingTwo() {
+		
+		combinedTwo.addAll(playerTwo);
+		combinedTwo.addAll(table);
+		
+		int find;
+		int minPivot = 0;
+		LinkedList <Card> numberDummy = new LinkedList<>();
+		numberDummy.addAll(combinedTwo);
+		for (int i = 0; i < numberDummy.size(); i++) {
+				find = Integer.parseInt(numberDummy.get(i).getNumbers());
+				sortedNumberTwo.add(find);
+			}
+		
+		int minNum;
+		int i = 0;
+
+		do {
+			minNum = sortedNumberTwo.get(i);
+
+			for(int j = i + 1; j < sortedNumberTwo.size(); j++) {
+				if(minNum > sortedNumberTwo.get(j)) {
+					minNum = sortedNumberTwo.get(j);
+					sortedNumberTwo.set(sortedNumberTwo.lastIndexOf(sortedNumberTwo.get(j)), sortedNumberTwo.get(i));
+					sortedNumberTwo.set(i, minNum);
+				}
+			}
+			i++;
+		}while(i < 7);
+		System.out.print(sortedNumberTwo);
 	}
 	
 	
