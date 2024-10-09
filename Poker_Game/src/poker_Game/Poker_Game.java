@@ -15,9 +15,8 @@ public class Poker_Game {
 			//cards.call();
 			//cards.call();
 			cards.setTable();
-
-			//cards.close(); //break out of the loop once either of the players runs out of money
-			break;
+			cards.close(); //break out of the loop once either of the players runs out of money
+			
 		}while(true);
 	}
 

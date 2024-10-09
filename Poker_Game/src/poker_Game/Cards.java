@@ -276,39 +276,96 @@ public class Cards {
 	
 	//calculate the upper hand by the rank of the cards combination 
 	
-	LinkedList <Card>pairsOne = new LinkedList<>();
-	LinkedList <Card>pairsTwo = new LinkedList<>();
+	LinkedList <Integer>pairsOne = new LinkedList<>();
+	LinkedList <Integer>pairsTwo = new LinkedList<>();
+	
 	LinkedList <Card>straightOne = new LinkedList<>();
 	LinkedList <Card>straightTwo = new LinkedList<>();
 	
 	LinkedList <Integer>sortedNumberOne = new LinkedList<>();
 	LinkedList <Integer>sortedNumberTwo = new LinkedList<>();
 	
+	LinkedList<Card> combinedOne = new LinkedList<>();
+	LinkedList<Card> combinedTwo = new LinkedList<>();
+	
 	public void open() {
 		sorting();
 		sortingTwo();
 		
+		System.out.println();
+		System.out.println();
+
+		int count = 0;
+		
 		//for pairs
-		for (int i = 0; i < combinedOne.size(); i++) {
-			for (int j = i+1; j <combinedOne.size(); i++) {
-				if(combinedOne.get(i).getNumbers().equals(combinedOne.get(j).getNumbers())) {
-					pairsOne.add(combinedOne.get(j));
-					if(pairsOne != null) {
-						pairsOne.add(combinedOne.get(i));
+		for (int i = 0; i < sortedNumberOne.size(); i++) {
+			for (int j = i+1; j <sortedNumberOne.size(); j++) {
+				if(sortedNumberOne.get(i) == (sortedNumberOne.get(j))) {
+					pairsOne.add(sortedNumberOne.get(j));
+					count++;
+					if(pairsOne != null && (count > 0)) {
+						pairsOne.add(sortedNumberOne.get(i));
 					}
 				}
 			}
+			count = 0;
 		}
-		for (int i = 0; i < combinedTwo.size(); i++) {
-			for (int j = i+1; j <combinedTwo.size(); i++) {
-				if(combinedTwo.get(i).getNumbers().equals(combinedTwo.get(j).getNumbers())) {
-					pairsTwo.add(combinedTwo.get(j));
+		
+		for (int i = 0; i < sortedNumberTwo.size(); i++) {
+			for (int j = i+1; j <sortedNumberTwo.size(); j++) {
+				if(sortedNumberTwo.get(i) == sortedNumberTwo.get(j)) {
+					pairsTwo.add(sortedNumberTwo.get(j));
+					count++;
 					if(pairsTwo != null) {
-						pairsTwo.add(combinedTwo.get(i));
+						pairsTwo.add(sortedNumberTwo.get(i));
 					}
 				}
 			}
+			count = 0;
 		}
+		if (pairsOne.size() > pairsTwo.size() || (pairsOne != null && pairsTwo == null) ) {
+			System.out.println("Player one won");
+			System.out.println();
+			money[0].setMoney(money[0].getMoney() + Money.bidMoney);
+			System.out.println("Player 1 Money: " + money[0].getMoney());
+			System.out.println("Player 2 Money: " + money[1].getMoney());
+		}else if(pairsOne.size() < pairsTwo.size() || (pairsTwo != null && pairsOne == null)) {
+			System.out.println("Player Two won");
+			System.out.println();
+			money[1].setMoney(money[1].getMoney() + Money.bidMoney);
+			System.out.println("Player 1 Money: " + money[0].getMoney());
+			System.out.println("Player 2 Money: " + money[1].getMoney());
+		}else if(pairsOne.size() == pairsTwo.size() && (pairsOne != null && pairsTwo != null)) {
+			if(pairsOne.get(0) < pairsTwo.get(0)) {
+				System.out.println("Player Two won");
+				System.out.println();
+				money[1].setMoney(money[1].getMoney() + Money.bidMoney);
+				System.out.println("Player 1 Money: " + money[0].getMoney());
+				System.out.println("Player 2 Money: " + money[1].getMoney());
+			}else {
+				System.out.println("Player one won");
+				System.out.println();
+				money[0].setMoney(money[0].getMoney() + Money.bidMoney);
+				System.out.println("Player 1 Money: " + money[0].getMoney());
+				System.out.println("Player 2 Money: " + money[1].getMoney());
+			}
+		}else if((pairsOne == null && pairsTwo == null)){
+			if(sortedNumberOne.getLast() > sortedNumberTwo.getLast()) {
+				System.out.println("Player one won");
+				System.out.println();
+				money[0].setMoney(money[0].getMoney() + Money.bidMoney);
+				System.out.println("Player 1 Money: " + money[0].getMoney());
+				System.out.println("Player 2 Money: " + money[1].getMoney());	
+			}else {
+				System.out.println("Player Two won");
+				System.out.println();
+				money[1].setMoney(money[1].getMoney() + Money.bidMoney);
+				System.out.println("Player 1 Money: " + money[0].getMoney());
+				System.out.println("Player 2 Money: " + money[1].getMoney());
+			}
+		}
+		
+		/*
 		//for straight
 		for (int i = 0; i < combinedOne.size(); i++) {
 			for (int j = i+1; j <combinedOne.size(); i++) {
@@ -320,13 +377,13 @@ public class Cards {
 					}
 				}
 			}
+		*/
 		}
+		
 	
 	
 	
-	
-	LinkedList<Card> combinedOne = new LinkedList<>();
-	LinkedList<Card> combinedTwo = new LinkedList<>();
+
 	public void sorting() {
 		
 		combinedOne.addAll(playerOne);
@@ -356,6 +413,7 @@ public class Cards {
 			}
 			i++;
 		}while(i < 7);
+		System.out.println(sortedNumberOne);
 	}
 	public void sortingTwo() {
 		
@@ -386,7 +444,7 @@ public class Cards {
 			}
 			i++;
 		}while(i < 7);
-		System.out.print(sortedNumberTwo);
+		System.out.println(sortedNumberTwo);
 	}
 	
 	
@@ -412,7 +470,7 @@ public class Cards {
 		System.out.println(table.toString());
 		System.out.println();
 		call();
-		//open();
+		open();
 		//reset ArrayList to 0
 	}	 
 	
@@ -420,17 +478,27 @@ public class Cards {
 	
 	
 	
-	/*
+	
 	//if user want to quit or run out of money break or return false value to stop the loop
 	public void close() {
 		
-		int one = money[0].getMoney();
-		int two = money[1].getMoney();
+		String choice;
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("you wanna continue: (y/n)");
+		choice = input.nextLine();
+		
+		if (choice.charAt(0) == 'n' || choice.charAt(0) == 'N') {
+			System.exit(0);
+		}
+		
+		
+		
 		
 		if (money[0].getMoney() <= 0 || money[1].getMoney() <= 0) {
 			System.out.println("PLAYER " + 1 + "has : " + money[0].getMoney());
 			System.out.println("PLAYER " + 2 + "has : " + money[1].getMoney());
-			if (one > two) {
+			if (money[0].getMoney() > money[1].getMoney()) {
 				System.out.print("Congratulation Player 1!!! you outplayed Player 2");
 			}else {
 				System.out.print("Congratulation Player 2!!! you outplayed Player 1");
@@ -438,5 +506,5 @@ public class Cards {
 			System.exit(0);
 		}
 	}
-	*/
+	
 }
