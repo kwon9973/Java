@@ -3,6 +3,7 @@ package poker_Game;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.awt.datatransfer.SystemFlavorMap;
 import java.util.*;
 
 public class Cards {
@@ -76,6 +77,9 @@ public class Cards {
 	ArrayList<Card> playerOne = new ArrayList<>(); 
 	ArrayList<Card> playerTwo = new ArrayList<>();
 	public void handingOne() {
+		if(!playerOne.isEmpty()) {
+			playerOne.clear();;
+		}
 		System.out.println("Player 1 cards'");
 		playerOne.add(Deck.remove(Deck.size()-1));
 		playerOne.add(Deck.remove(Deck.size()-1));
@@ -88,6 +92,9 @@ public class Cards {
 	
 	//remove two cards on top of the deck for player two
 	public void handingTwo() {
+		if(!playerTwo.isEmpty()) {
+			playerTwo.clear();;
+		}
 		System.out.println("Player 2 cards'");
 		playerTwo.add(Deck.remove(Deck.size()-1));
 		playerTwo.add(Deck.remove(Deck.size()-1));
@@ -162,9 +169,9 @@ public class Cards {
 	//ask each user to bid, call, or die
 	Money []money = new Money[2];
 	
-	public int count = 0;
-	public int moneyOne = 0;
-	public int moneyTwo = 0;
+	public static int count = 0;
+	public static int moneyOne;
+	public static int moneyTwo;
 	
 	public void call() {
 		
@@ -181,10 +188,13 @@ public class Cards {
 		int [] choice = new int[3];
 		
 		for(int i = 0; i < choice.length-1; i++) {
-			if (money[i].getMoney() == 1000) {
-				money[i].gameMoney();
+			if (Money.getBidMoney() == 0) {
+				money[0].gameMoney();
+				money[1].gameMoney();
 			}
-			
+
+			System.out.println();
+			System.out.println();
 			System.out.println("player " + (i+1) + " What do you want to do: (1. call 2. bid 3. die)");
 			choice[i] = input.nextInt();
 			System.out.println("Total money in the pot: " + Money.getBidMoney());
@@ -289,7 +299,17 @@ public class Cards {
 	LinkedList<Card> combinedTwo = new LinkedList<>();
 	
 	public void open() {
+		
+		if(!pairsOne.isEmpty()) {
+			pairsOne.clear();
+		}
+		if(!pairsTwo.isEmpty()) {
+			pairsTwo.clear();
+		}
+		
+		System.out.println("player 1 cards");
 		sorting();
+		System.out.println("Player 2 cards");
 		sortingTwo();
 		
 		System.out.println();
@@ -323,6 +343,8 @@ public class Cards {
 			}
 			count = 0;
 		}
+		
+		
 		if (pairsOne.size() > pairsTwo.size() || (pairsOne != null && pairsTwo == null) ) {
 			System.out.println("Player one won");
 			System.out.println();
@@ -335,7 +357,7 @@ public class Cards {
 			money[1].setMoney(money[1].getMoney() + Money.bidMoney);
 			System.out.println("Player 1 Money: " + money[0].getMoney());
 			System.out.println("Player 2 Money: " + money[1].getMoney());
-		}else if(pairsOne.size() == pairsTwo.size() && (pairsOne != null && pairsTwo != null)) {
+		}else if(pairsOne.size() == pairsTwo.size() && (!pairsOne.isEmpty() && !pairsTwo.isEmpty())) {
 			if(pairsOne.get(0) < pairsTwo.get(0)) {
 				System.out.println("Player Two won");
 				System.out.println();
@@ -364,7 +386,8 @@ public class Cards {
 				System.out.println("Player 2 Money: " + money[1].getMoney());
 			}
 		}
-		
+		moneyOne = money[0].getMoney();
+		moneyTwo = money[1].getMoney();
 		/*
 		//for straight
 		for (int i = 0; i < combinedOne.size(); i++) {
@@ -378,7 +401,9 @@ public class Cards {
 				}
 			}
 		*/
-		}
+		Money.setBidMoney(0);
+		System.out.println();
+	}
 		
 	
 	
@@ -386,12 +411,21 @@ public class Cards {
 
 	public void sorting() {
 		
+		if(!sortedNumberOne.isEmpty()) {
+			sortedNumberOne.clear();
+		}
+		if(!combinedOne.isEmpty()) {
+			combinedOne.clear();
+		}
 		combinedOne.addAll(playerOne);
 		combinedOne.addAll(table);
 		
 		int find;
 		int minPivot = 0;
 		LinkedList <Card> numberDummy = new LinkedList<>();
+		if(!numberDummy.isEmpty()) {
+			numberDummy.clear();
+		}
 		numberDummy.addAll(combinedOne);
 		for (int i = 0; i < numberDummy.size(); i++) {
 				find = Integer.parseInt(numberDummy.get(i).getNumbers());
@@ -417,12 +451,22 @@ public class Cards {
 	}
 	public void sortingTwo() {
 		
+		if(!sortedNumberTwo.isEmpty()) {
+			sortedNumberTwo.clear();
+		}
+		if(!combinedTwo.isEmpty()) {
+			combinedTwo.clear();
+		}
+		
 		combinedTwo.addAll(playerTwo);
 		combinedTwo.addAll(table);
 		
 		int find;
 		int minPivot = 0;
 		LinkedList <Card> numberDummy = new LinkedList<>();
+		if(!numberDummy.isEmpty()) {
+			numberDummy.clear();
+		}
 		numberDummy.addAll(combinedTwo);
 		for (int i = 0; i < numberDummy.size(); i++) {
 				find = Integer.parseInt(numberDummy.get(i).getNumbers());
@@ -455,18 +499,27 @@ public class Cards {
 	ArrayList<Card> table = new ArrayList<>();	
 	//lays three cards on the table and ask user to bid before putting 4th and 5th card on the table and finally open()
 	public void setTable() {
+		if(!table.isEmpty()) {
+			table.clear();;
+		}
 		System.out.println("Dealing three cards on the table: ");
 		table.add(Deck.remove(Deck.size()-1));
 		table.add(Deck.remove(Deck.size()-1));
 		table.add(Deck.remove(Deck.size()-1));
+		System.out.println();
+		System.out.println();
 		System.out.println(table.toString());
 		System.out.println();
 		call();
 		table.add(Deck.remove(Deck.size()-1));
+		System.out.println();
+		System.out.println();
 		System.out.println(table.toString());
 		System.out.println();
 		call();
 		table.add(Deck.remove(Deck.size()-1));
+		System.out.println();
+		System.out.println();
 		System.out.println(table.toString());
 		System.out.println();
 		call();
@@ -485,22 +538,22 @@ public class Cards {
 		String choice;
 		Scanner input = new Scanner(System.in);
 		
-		System.out.println("you wanna continue: (y/n)");
-		choice = input.nextLine();
-		
-		if (choice.charAt(0) == 'n' || choice.charAt(0) == 'N') {
-			System.exit(0);
-		}
 		
 		
-		
-		
-		if (money[0].getMoney() <= 0 || money[1].getMoney() <= 0) {
-			System.out.println("PLAYER " + 1 + "has : " + money[0].getMoney());
-			System.out.println("PLAYER " + 2 + "has : " + money[1].getMoney());
+		if (money[0].getMoney() >= 0 && money[1].getMoney() >= 0) {
+			System.out.println("you wanna continue: (y/n)");
+			choice = input.nextLine();
+			if (choice.charAt(0) == 'n' || choice.charAt(0) == 'N') {
+				System.exit(0);
+			}
+		}else if(money[0].getMoney() <= 0 || money[1].getMoney() <= 0) {
+			System.out.println("PLAYER " + 1 + " has : " + money[0].getMoney());
+			System.out.println("PLAYER " + 2 + " has : " + money[1].getMoney());
 			if (money[0].getMoney() > money[1].getMoney()) {
+				System.out.println();
 				System.out.print("Congratulation Player 1!!! you outplayed Player 2");
 			}else {
+				System.out.println();
 				System.out.print("Congratulation Player 2!!! you outplayed Player 1");
 			}
 			System.exit(0);
