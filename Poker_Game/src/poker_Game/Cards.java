@@ -450,20 +450,6 @@ public class Cards {
 		
 		
 				
-			
-		
-		/*
-		for (int i = 0; i < combinedTwo.size(); i++) {
-			for (int j = i+1; j <combinedTwo.size(); i++) {
-					if(Math.abs(Integer.parseInt(combinedOne.get(i).getNumbers())-Integer.parseInt(combinedOne.get(j).getNumbers())) == 1) {
-						straightOne.add(combinedOne.get(j));
-						if(straightOne != null) {
-							straightOne.add(combinedOne.get(i));
-						}
-					}
-				}
-			}
-		*/
 		
 		Money.setBidMoney(0);
 		System.out.println();
