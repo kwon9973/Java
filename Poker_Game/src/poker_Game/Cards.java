@@ -3,7 +3,6 @@ package poker_Game;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.awt.datatransfer.SystemFlavorMap;
 import java.util.*;
 
 public class Cards {
@@ -39,7 +38,7 @@ public class Cards {
 	private ArrayList <Card> Deck = new ArrayList<>();
 	public void buildDeck() {
 		String[] suites = {"C","H","D","S"};
-		String[] numbers = {"1","2","3","4","5","6","7","8","9","10","11","12","13"};
+		String[] numbers = {"2","3","4","5","6","7","8","9","10","11","12","13","14"};
 		
 		for(int i = 0; i < suites.length; i++) {
 			for(int j = 0; j < numbers.length; j++) {
@@ -85,6 +84,7 @@ public class Cards {
 		playerOne.add(Deck.remove(Deck.size()-1));
 		System.out.println(playerOne.toString());
 		System.out.println();
+		
 	}
 	
 	
@@ -100,6 +100,7 @@ public class Cards {
 		playerTwo.add(Deck.remove(Deck.size()-1));
 		System.out.println(playerTwo.toString());
 		System.out.println();
+		System.console().flush();
 	}
 	
 	
@@ -289,8 +290,8 @@ public class Cards {
 	LinkedList <Integer>pairsOne = new LinkedList<>();
 	LinkedList <Integer>pairsTwo = new LinkedList<>();
 	
-	LinkedList <Card>straightOne = new LinkedList<>();
-	LinkedList <Card>straightTwo = new LinkedList<>();
+	LinkedList <Integer>straightOne = new LinkedList<>();
+	LinkedList <Integer>straightTwo = new LinkedList<>();
 	
 	LinkedList <Integer>sortedNumberOne = new LinkedList<>();
 	LinkedList <Integer>sortedNumberTwo = new LinkedList<>();
@@ -302,7 +303,7 @@ public class Cards {
 		
 		if(!pairsOne.isEmpty()) {
 			pairsOne.clear();
-		}
+		}  
 		if(!pairsTwo.isEmpty()) {
 			pairsTwo.clear();
 		}
@@ -388,10 +389,72 @@ public class Cards {
 		}
 		moneyOne = money[0].getMoney();
 		moneyTwo = money[1].getMoney();
-		/*
+		
+		
+		
 		//for straight
-		for (int i = 0; i < combinedOne.size(); i++) {
-			for (int j = i+1; j <combinedOne.size(); i++) {
+		if(sortedNumberOne.get(0) == 2 && sortedNumberOne.get(-1) == 14) {
+			straightOne.add(0);
+			straightOne.add(-1);
+			for(int i = -1; i < -sortedNumberOne.size(); i--) {
+				
+				if(Math.abs(sortedNumberOne.get(i)-sortedNumberOne.get(i-1)) == 1) {
+					straightOne.add(straightOne.get(i-1));
+					
+				}else if(straightOne.size() < 5 && (Math.abs(sortedNumberOne.get(i)-sortedNumberOne.get(i-1)) != 1)) {
+					straightOne.clear();
+					
+					for(int j = 0; j < sortedNumberOne.size(); j++) {
+						if(Math.abs(sortedNumberOne.get(j)-sortedNumberOne.get(j+1)) == 1) {
+							straightOne.add(straightOne.get(i+1));
+						}else if(straightOne.size() < 5 && (Math.abs(sortedNumberOne.get(j)-sortedNumberOne.get(j-1)) != 1)) {
+							straightOne.clear();
+						}
+						
+					}
+				}
+			}
+			
+			if(straightOne.size() >= 5) {
+				System.out.println("straight has been found: ");
+				System.out.println(straightOne);
+			}
+		}else {
+			for(int i = -1; i < -sortedNumberOne.size(); i--) {
+				straightOne.add(straightOne.get(-1));
+				if(Math.abs(sortedNumberOne.get(i)-sortedNumberOne.get(i-1)) == 1) {
+					straightOne.add(straightOne.get(i-1));
+				}else if(straightOne.size() < 5 && (Math.abs(sortedNumberOne.get(i)-sortedNumberOne.get(i-1)) != 1)) {
+					straightOne.clear();
+					for(int j = 0; j < sortedNumberOne.size(); j++) {
+						straightOne.add(straightOne.get(0));
+						if(Math.abs(sortedNumberOne.get(j)-sortedNumberOne.get(j+1)) == 1) {
+							straightOne.add(straightOne.get(j+1));
+						}else if(straightOne.size() < 5 && (Math.abs(sortedNumberOne.get(j)-sortedNumberOne.get(j+1)) != 1)) {
+							straightOne.clear();
+						}
+					}
+				}
+			}
+			if(straightOne.size() >= 5) {
+				System.out.println("straight has been found: ");
+				System.out.println(straightOne);
+			}
+		}
+		
+		
+		//
+		
+		
+		
+		
+		
+				
+			
+		
+		/*
+		for (int i = 0; i < combinedTwo.size(); i++) {
+			for (int j = i+1; j <combinedTwo.size(); i++) {
 					if(Math.abs(Integer.parseInt(combinedOne.get(i).getNumbers())-Integer.parseInt(combinedOne.get(j).getNumbers())) == 1) {
 						straightOne.add(combinedOne.get(j));
 						if(straightOne != null) {
@@ -401,6 +464,7 @@ public class Cards {
 				}
 			}
 		*/
+		
 		Money.setBidMoney(0);
 		System.out.println();
 	}
@@ -449,6 +513,9 @@ public class Cards {
 		}while(i < 7);
 		System.out.println(sortedNumberOne);
 	}
+	
+
+	
 	public void sortingTwo() {
 		
 		if(!sortedNumberTwo.isEmpty()) {
@@ -540,13 +607,23 @@ public class Cards {
 		
 		
 		
-		if (money[0].getMoney() >= 0 && money[1].getMoney() >= 0) {
+		if (money[0].getMoney() > 0 && money[1].getMoney() > 0) {
 			System.out.println("you wanna continue: (y/n)");
 			choice = input.nextLine();
+			System.out.println();
+			System.out.println();
+			System.out.println();
+			System.out.println();
+			System.out.println();
+			System.out.println();
 			if (choice.charAt(0) == 'n' || choice.charAt(0) == 'N') {
 				System.exit(0);
 			}
 		}else if(money[0].getMoney() <= 0 || money[1].getMoney() <= 0) {
+			System.out.println();
+			System.out.println();
+			System.out.println();
+			System.out.println();
 			System.out.println("PLAYER " + 1 + " has : " + money[0].getMoney());
 			System.out.println("PLAYER " + 2 + " has : " + money[1].getMoney());
 			if (money[0].getMoney() > money[1].getMoney()) {

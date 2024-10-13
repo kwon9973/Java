@@ -9,14 +9,10 @@ public class Poker_Game {
 		do {
 			cards.buildDeck(); 
 			cards.shuffleDeck();
-			//can make a new object every time you hand two cards to players, but it is for the simple display.
 			cards.handingOne();
-			cards.handingTwo();			
-			//cards.call();
-			//cards.call();
+			cards.handingTwo();	
 			cards.setTable();
-			cards.close(); //break out of the loop once either of the players runs out of money
-			
+			cards.close();
 		}while(true);
 	}
 
