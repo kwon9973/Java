@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+
 public class Week_3 {
 
-	/*
-	public static <E extends Comparable<E>> E max(E[] list){
+	public static <E extends java.lang.Comparable<E>> E max(E[] list){
 		E largest = list[0];
 		
 		for(int i = 1; i < list.length; i++) {
@@ -15,15 +16,8 @@ public class Week_3 {
 				largest = list[i];
 			}
 		}
-		
-		
-		
 		return largest;
 	}
-	/
-	*/
-	
-	
 	
 	/*
 	public static <E extends Comparable<E>> E max(ArrayList<E> list) {

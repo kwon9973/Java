@@ -1,6 +1,6 @@
 package week_3;
 
-public class ComparableRectangle extends Rectangle implements Comparable<ComparableRectangle >{
+public class ComparableRectangle extends Rectangle implements java.lang.Comparable<ComparableRectangle >{
 
 	public ComparableRectangle(int length, int width) {
 		super(length, width);
