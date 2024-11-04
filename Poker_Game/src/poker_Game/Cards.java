@@ -5,9 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.*;
 
-public class Cards {
-	
-	
+public class Cards extends Player{
 	
 	//Class that has a single card data fields
 	private class Card{
@@ -18,7 +16,6 @@ public class Cards {
 			this.suites = suit;
 			this.numbers = num;
 		}
-		
 		public String toString() {
 			return suites + "-" + numbers;
 		}
@@ -29,8 +26,6 @@ public class Cards {
 			return this.numbers;
 		}
 	}
-	
-	
 	
 	
 	//Create an ArrayList to add a single card until we have a full deck
@@ -77,7 +72,7 @@ public class Cards {
 	ArrayList<Card> playerTwo = new ArrayList<>();
 	public void handingOne() {
 		if(!playerOne.isEmpty()) {
-			playerOne.clear();;
+			playerOne.clear();
 		}
 		System.out.println("Player 1 cards'");
 		playerOne.add(Deck.remove(Deck.size()-1));
@@ -93,7 +88,7 @@ public class Cards {
 	//remove two cards on top of the deck for player two
 	public void handingTwo() {
 		if(!playerTwo.isEmpty()) {
-			playerTwo.clear();;
+			playerTwo.clear();
 		}
 		System.out.println("Player 2 cards'");
 		playerTwo.add(Deck.remove(Deck.size()-1));
@@ -161,7 +156,7 @@ public class Cards {
 			Money.setBidMoney(Money.getBidMoney()+bidding);
 			
 			System.out.println("Total money in the pot: " + Money.getBidMoney());
-		}	
+		}
 	}
 	
 	
@@ -443,13 +438,8 @@ public class Cards {
 		}
 		
 		
-		//
 		
 		
-		
-		
-		
-				
 		
 		Money.setBidMoney(0);
 		System.out.println();
